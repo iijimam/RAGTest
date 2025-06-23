@@ -1,0 +1,23 @@
+services:
+  iris:
+    build:
+      context: iris
+      dockerfile: Dockerfile
+    ports: ["9072:1972"]
+    container_name: irisragtest
+    volumes: ["./iris/data:/data","./iris/src:/src"]
+    environment: 
+      - TZ=JST-9
+
+  webgateway:
+    image: irepo.intersystems.com/intersystems/webgateway:latest-preview
+    container_name: wgragtest
+    init: true
+    ports:
+      - 8081:80
+      - 8443:443
+    environment:
+    - ISC_CSP_CONF_FILE=/webgateway-shared/CSP.conf
+    - ISC_CSP_INI_FILE=/webgateway-shared/CSP.ini
+    volumes:
+    - ./webgateway:/webgateway-shared

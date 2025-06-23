@@ -1,0 +1,17 @@
+{
+    "intersystems.servers": {
+        "test":{
+            "webServer": {
+                "host": "127.0.0.1",
+                "port": 8081,
+                "scheme": "http",
+            },
+            "username": "SuperUser"
+        }
+    },
+    "objectscript.conn": {
+        "active": false,
+        "server": "test",
+        "ns": "USER"
+    }
+}

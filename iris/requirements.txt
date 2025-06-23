@@ -1,0 +1,5 @@
+Image
+transformers
+sentence_transformers
+requests
+tqdm
