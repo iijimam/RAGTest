@@ -137,7 +137,7 @@ systemprompt=f"この魚は、{system} 3つのレシピ候補とそれぞれの�
 #print(f"\n★ システムプロンプト：{systemprompt}")
 #print(f"\n★ ユーザプロンプト：{input}　\n\n***この情報でLLMに質問します***")
 #API_SERVER_URL = "http://ollama:11434/api/chat"
-API_SERVER_URL = "http://18.179.29.19/api/chat"
+API_SERVER_URL = "http://54.238.251.191/api/chat"
 
 def main():
     headers = {"Content-Type": "application/json"}
