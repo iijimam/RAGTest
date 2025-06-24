@@ -7,7 +7,9 @@ ClassMethod t1(in As %String(MAXLEN=1000)) As %String [ SqlProc ]
     return "OKよ"
 }
 
-ClassMethod getImageVec(file As %String(MAXLEN=1000)) As %SYS.Python [ Language = python ]
+/// LINE CLIPではないモデル編
+/// 画像：clip-ViT-B-32
+ClassMethod getImageVecOthers(file As %String(MAXLEN=1000)) As %SYS.Python [ Language = python ]
 {
 from sentence_transformers import SentenceTransformer
 from PIL import Image
@@ -20,9 +22,9 @@ img_embeddings = img_model.encode([image])[0].tolist()
 return img_embeddings
 }
 
-/// 【動かなくなったもの】 LINE社のモデルを利用：画像からベクトル取り出す
+/// LINE社のモデルを利用：画像からベクトル取り出す
 /// リスト戻る
-ClassMethod getImageVecBCK(file As %String(MAXLEN=1000)) As %SYS.Python [ Language = python ]
+ClassMethod getImageVec(file As %String(MAXLEN=1000)) As %SYS.Python [ Language = python ]
 {
 import io
 import requests
@@ -33,7 +35,8 @@ import time
 
 HF_MODEL_PATH = 'line-corporation/clip-japanese-base'
 device = "cuda" if torch.cuda.is_available() else "cpu"
-tokenizer = AutoTokenizer.from_pretrained(HF_MODEL_PATH, trust_remote_code=True)
+#tokenizer = AutoTokenizer.from_pretrained(HF_MODEL_PATH, trust_remote_code=True)
+tokenizer = AutoTokenizer.from_pretrained(HF_MODEL_PATH, trust_remote_code=True,legacy=True)
 processor = AutoImageProcessor.from_pretrained(HF_MODEL_PATH, trust_remote_code=True)
 model = AutoModel.from_pretrained(HF_MODEL_PATH, trust_remote_code=True).to(device)
 

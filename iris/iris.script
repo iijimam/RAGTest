@@ -37,4 +37,4 @@ set st=##class(Security.Applications).Create(webName, .webProperties)
 set $namespace="USER"
 do $System.OBJ.LoadDir("/opt/src/FishDetector","ck",,1)
 //ベクトル検索用データロード
-do ##class(FishDetector.Fish).loaddata("/opt/src/fish_text_vectors.jsonl")
+do ##class(FishDetector.Fish).loaddata("/opt/src/fish_clip_vectors.jsonl")

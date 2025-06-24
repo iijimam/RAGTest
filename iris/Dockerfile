@@ -13,7 +13,7 @@ COPY iris.script .
 COPY src .
 COPY data .
 COPY requirements.txt .
-COPY fish_text_vectors.jsonl .
+COPY fish_clip_vectors.jsonl .
 
 # IRISを開始し、IRISにログインし、iris.scriptに記載のコマンドを実行しています
 RUN iris start IRIS \
