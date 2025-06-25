@@ -107,31 +107,36 @@ zwrite l
 
 Embeddingのテストに使用。
 
-2025/6/23 LINEのCLIPでエラーが出てしまって動かない問題発生
+- 2025/6/23 LINEのCLIPでエラーが出てしまって動かない問題発生
 
-以下、チャットGPTの回答
+    transformersをバージョン指定すればOKと判明
 
-fishTextToVector-BCK.ipynb は、LINEのCLIPを使っているが、新しい環境でPIPし直すと以下エラーが出て動かなかった
+    ```
+    transformers==4.49.0
+    ```
 
-LINEのモデルが Hugging Face Hub から rinna/clip-vit-b-patch16 という別モデルを内部で参照していることがわかりました。
+- 最新のtransformersだとエラーが出る。
 
-✅ 今回のエラーの原因
+    以下、チャットGPTの回答のメモ
 
-line-corporation/clip-japanese-base の中で RinnaCLIPModel を使っており、内部で以下のようなことをしている：
+    fishTextToVector-BCK.ipynb は、LINEのCLIPを使っているが、新しい環境でPIPし直すと以下エラーが出て動かなかった
 
-pythonコピーする編集するRinnaCLIPConfig.from_pretrained(config.model_name)
-しかし、その config.model_name に指定されている rinna/clip-vit-b-patch16 の構成が自動では読み込めず、vision_config などが None になってしまっています。
- 
-❗ 結論（2025年6月時点）
+    LINEのモデルが Hugging Face Hub から rinna/clip-vit-b-patch16 という別モデルを内部で参照していることがわかりました。
 
-LINEの clip-japanese-base は以下の理由で Hugging Face Transformers だけでは安定して動かせません：
-- モデル内部が rinna/clip に依存しており、それを中で from_pretrained() で呼び出している
-- そのときの config に vision_config や text_config を 外部から与える手段がない
-- AutoModel や trust_remote_code=True を使っても、完全な再帰的初期化には対応していない
+    ✅ 今回のエラーの原因
 
-ということで、堀田さんコードを使用。
+    line-corporation/clip-japanese-base の中で RinnaCLIPModel を使っており、内部で以下のようなことをしている：
 
-> 現時時点で文字に対応する画像がなかなかヒットしない。tai.jpgぐらい
+    pythonコピーする編集するRinnaCLIPConfig.from_pretrained(config.model_name)
+    しかし、その config.model_name に指定されている rinna/clip-vit-b-patch16 の構成が自動では読み込めず、vision_config などが None になってしまっています。
+    
+    ❗ 結論（2025年6月時点）
+
+    LINEの clip-japanese-base は以下の理由で Hugging Face Transformers だけでは安定して動かせません：
+    - モデル内部が rinna/clip に依存しており、それを中で from_pretrained() で呼び出している
+    - そのときの config に vision_config や text_config を 外部から与える手段がない
+    - AutoModel や trust_remote_code=True を使っても、完全な再帰的初期化には対応していない
+
 
 
 ### 仮想環境作成
