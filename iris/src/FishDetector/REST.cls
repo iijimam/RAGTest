@@ -36,7 +36,7 @@ ClassMethod upload() As %Status
     //　カンマ区切りデータで戻る
     set json={}
     set json.FishName=$piece(result,",",1)
-    set json.FislInfo=$piece(result,",",2)
+    set json.FishInfo=$piece(result,",",2)
     do json.%ToJSON()
     return $$$OK
 }
