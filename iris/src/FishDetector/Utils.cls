@@ -1,10 +1,10 @@
 Class FishDetector.Utils
 {
 
-ClassMethod t1(in As %String(MAXLEN=1000)) As %String [ SqlProc ]
+ClassMethod t1()
 {
-    set ^iijima("t1")=in
-    return "OKよ"
+    set ^iijima("t1")=$ZDATETIME($H,16)
+    return "{""msg:OKよ""}"
 }
 
 /// LINE CLIPではないモデル編
@@ -80,7 +80,7 @@ try:
 
     start = time.time()  # 現在時刻（処理開始前）を取得
     #sql="select FishName,VECTOR_COSINE(FishInfoVec, TO_VECTOR(?, DOUBLE, 384)) as cos,fishinfo from FishDetector.Fish ORDER BY cos desc"
-    sql="select top 1 FishName,FishInfo,VECTOR_COSINE(FishNameVec, TO_VECTOR(?, DOUBLE, 384)) as cos,fishinfo from FishDetector.Fish ORDER BY cos desc"
+    sql="select top 1 FishName,FishInfo,VECTOR_COSINE(FishNameVec, TO_VECTOR(?, DOUBLE, 384)) as cos from FishDetector.Fish ORDER BY cos desc"
     stmt=iris.sql.prepare(sql)
     rset=stmt.execute(vecparm)
     #for row in rset:
@@ -140,7 +140,7 @@ systemprompt=f"この魚は、{system} 3つのレシピ候補とそれぞれの�
 #print(f"\n★ システムプロンプト：{systemprompt}")
 #print(f"\n★ ユーザプロンプト：{input}　\n\n***この情報でLLMに質問します***")
 #API_SERVER_URL = "http://ollama:11434/api/chat"
-API_SERVER_URL = "http://54.238.251.191/api/chat"
+API_SERVER_URL = "http://43.206.155.251/api/chat"
 
 def main():
     headers = {"Content-Type": "application/json"}
