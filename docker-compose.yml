@@ -3,7 +3,7 @@ services:
     build:
       context: iris
       dockerfile: Dockerfile
-    ports: ["9072:1972"]
+    ports: ["9072:1972","8080:8080"]
     container_name: irisragtest
     volumes: ["./iris/data:/data","./iris/src:/src"]
     environment: 
@@ -16,6 +16,7 @@ services:
     ports:
       - 8081:80
       - 8443:443
+
     environment:
     - ISC_CSP_CONF_FILE=/webgateway-shared/CSP.conf
     - ISC_CSP_INI_FILE=/webgateway-shared/CSP.ini

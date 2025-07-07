@@ -8,23 +8,23 @@ set pro("Enabled")=1
 // 修正登録
 set st=##class(Security.Services).Modify("%Service_CallIn",.pro)
 
-// WSGIアプリの設定
-//set webName = "/fish"
-//set webProperties("DispatchClass") = "%SYS.Python.WSGI"
-//set webProperties("NameSpace") = "USER"
-//set webProperties("Enabled") = 1
-//set webProperties("AutheEnabled") = 64
-//set webProperties("MatchRoles")=":%All"
-//set webProperties("Path")="/src/wsgi/"
-//set webProperties("WSGIAppLocation")="/src/wsgi/"
-//set webProperties("WSGIAppName")="detector"
-//set webProperties("WSGICallable")="app"
-//set webProperties("WSGIDebug")=1
-//set webProperties("WSGIType")=1
-//set st=##class(Security.Applications).Create(webName, .webProperties)
+// EndPoint1 - WSGIアプリの設定
+set webName = "/fish"
+set webProperties("DispatchClass") = "%SYS.Python.WSGI"
+set webProperties("NameSpace") = "USER"
+set webProperties("Enabled") = 1
+set webProperties("AutheEnabled") = 64
+set webProperties("MatchRoles")=":%All"
+set webProperties("Path")="/src/wsgi/"
+set webProperties("WSGIAppLocation")="/src/wsgi/"
+set webProperties("WSGIAppName")="app"
+set webProperties("WSGICallable")="app"
+set webProperties("WSGIDebug")=1
+set webProperties("WSGIType")=1
+set st=##class(Security.Applications).Create(webName, .webProperties)
 
 
-//EndPoint
+//EndPoint2 -  IRIS RESTディスパッチクラス用
 set webName = "/fish2"
 set webProperties("DispatchClass") = "FishDetector.REST"
 set webProperties("NameSpace") = "USER"
